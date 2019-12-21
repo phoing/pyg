@@ -1,0 +1,160 @@
+
+    <title>设置-个人信息</title>
+    <link rel="stylesheet" type="text/css" href="/static/home/css/pages-seckillOrder.css" />
+
+
+    <!--header-->
+    <div id="account">
+        <div class="py-container">
+            <div class="yui3-g home">
+                <!--左侧列表-->
+				{include file="member_left"}
+                <!--右侧主内容-->
+                <div class="yui3-u-5-6">
+                    <div class="body userInfo">
+                        <ul class="sui-nav nav-tabs nav-large nav-primary ">
+                            <li class="active"><a href="#one" data-toggle="tab">基本资料</a></li>
+                            <li><a href="#two" data-toggle="tab">头像照片</a></li>
+                        </ul>
+                        <div class="tab-content ">
+                            <div id="one" class="tab-pane active">
+                                <form id="form-msg" class="sui-form form-horizontal" action="{:url('home/member/save')}" method="post">
+                                    <div class="control-group">
+                                        <label for="inputName" class="control-label">昵称：</label>
+                                        <div class="controls">
+                                            <input type="text" id="inputName" name="nickname" placeholder="昵称" value="{$user.nickname}">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="inputGender" class="control-label">性别：</label>
+                                        <div class="controls">
+                                            <label data-toggle="radio" class="radio-pretty inline {if($user.gender=='男')}checked{/if}">
+                                            <input type="radio" name="gender" value="1" {if($user.gender=='男')}checked{/if}><span>男</span>
+                                        </label>
+                                            <label data-toggle="radio" class="radio-pretty inline {if($user.gender=='女')}checked{/if}">
+                                            <input type="radio" name="gender" value="2" {if($user.gender=='女')}checked{/if}><span>女</span>
+                                        </label>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="inputPassword" class="control-label">生日：</label>
+                                        <div class="controls">
+                                            <select id="select_year2" rel="{$user.year}" name="year"></select>年
+                                            <select id="select_month2" rel="{$user.month}" name="month"></select>月
+                                            <select id="select_day2" rel="{$user.day}" name="day"></select>日
+                                        </div>
+                                    </div>
+
+
+                                    <div class="control-group">
+                                        <label for="inputPassword" class="control-label">所在地：</label>
+                                        <div class="controls">
+<!--                                            <div data-toggle="distpicker">-->
+                                            <div id="distpicker6">
+                                                <div class="form-group area">
+                                                    <select class="form-control" id="province1" name="state"></select>
+                                                </div>
+                                                <div class="form-group area">
+                                                    <select class="form-control" id="city1" name="city"></select>
+                                                </div>
+                                                <div class="form-group area">
+                                                    <select class="form-control" id="district1" name="district"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="inputJob" class="control-label">职业：</label>
+                                        <div class="controls"><span class="sui-dropdown dropdown-bordered select"><span class="dropdown-inner"><a role="button" data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                                <input name="job" type="hidden" data-rules="required"><i class="caret"></i><span>请选择</span></a>
+                                            <ul id="menu4" role="menu" aria-labelledby="drop4" class="sui-dropdown-menu">
+                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" value="code">程序员</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" value="cp">产品经理</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" value="ui">UI设计师</a></li>
+                                            </ul>
+                                            </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="sanwei" class="control-label"></label>
+                                        <div class="controls">
+                                            <button type="submit" class="sui-btn btn-primary">立即注册</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="two" class="tab-pane">
+
+                                <div class="new-photo">
+                                    <p>当前头像：</p>
+                                    <div class="upload">
+                                        <img id="imgShow_WU_FILE_0" width="100" height="100" src="{if($user.figure_url)}{$user.figure_url}{else/}/static/home/img/_/photo_icon.png{/if}" alt="">
+                                        <input type="file" id="up_img_WU_FILE_0" onchange="upFile()" />
+                                    </div>
+                                    <p></p>
+                                    <span id="message" style="color:red;"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部栏位 -->
+    <!--页面底部-->
+
+
+<script type="text/javascript" src="/static/home/js/pages/main.js"></script>
+<script>
+// 默认所在地
+var state = "{$user.state}";
+var city = "{$user.city}";
+var district = "{$user.district}";
+// 默认职业
+var job = "{$user.job}";
+$(function() {
+    $.ms_DatePicker({
+        YearSelector: "#select_year2",
+        MonthSelector: "#select_month2",
+        DaySelector: "#select_day2"
+    });
+    // 默认所在地
+    $('#distpicker6').distpicker({
+        province: state,
+        city: city,
+        district: district
+    });
+    // 默认职业
+    $('#menu4 li').each(function () {
+        if($(this).children().attr('value') == job){
+            $(this).children().click();
+        }
+    });
+});
+//头像上传
+function upFile(e) {
+    // 获取文件数据
+    var file = $('#up_img_WU_FILE_0')[0].files[0];
+    // 实例化对象
+    var formData = new FormData();
+
+    formData.append('figure_url',file);
+    $.ajax({
+        url:"{:url('home/member/upimg')}",
+        data:formData,
+        type:'POST',
+        dataType:'json',
+        processData: false, // 禁止转化数据
+        contentType: false,
+        success:function (data) {
+            if(data.code == 200){
+                $('#imgShow_WU_FILE_0').prop('src',data.file);
+            }
+            $('#message').text(data.msg);
+        }
+    });
+}
+</script>

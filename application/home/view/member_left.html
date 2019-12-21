@@ -1,0 +1,36 @@
+
+<div class="yui3-u-1-6 list">
+
+    <div class="person-info">
+        <div class="person-photo"><img src="/static/home/img/_/photo.png" alt=""></div>
+        <div class="person-account">
+            <span class="name">Michelle</span>
+            <span class="safe">账户安全</span>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="list-items">
+        <dl>
+            <dt><i>·</i> 订单中心</dt>
+            <dd ><a href="{:url('home/member/order')}" class="{if($listActive=='order')}list-active{/if}">我的订单</a></dd>
+            <dd><a href="seckillorder-pay.html">待付款</a></dd>
+            <dd><a href="seckillorder-send.html">待发货</a></dd>
+            <dd><a href="seckillorder-receive.html">待收货</a></dd>
+            <dd><a href="seckillorder-evaluate.html">待评价</a></dd>
+        </dl>
+        <dl>
+            <dt><i>·</i> 我的中心</dt>
+            <dd><a href="{:url('home/member/collect')}" class="{if($listActive=='collect')}list-active{/if}">我的收藏</a></dd>
+            <dd><a href="{:url('home/member/footmark')}" class="{if($listActive=='footmark')}list-active{/if}">我的足迹</a></dd>
+        </dl>
+        <dl>
+            <dt><i>·</i> 物流消息</dt>
+        </dl>
+        <dl>
+            <dt><i>·</i> 设置</dt>
+            <dd><a href="{:url('home/member/info')}" class="{if($listActive=='info')}list-active{/if}">个人信息</a></dd>
+            <dd><a href="{:url('home/member/address')}" class="{if($listActive=='address')}list-active{/if}">地址管理</a></dd>
+            <dd><a href="{:url('home/member/safe')}" class="{if($listActive=='safe')}list-active{/if}">安全管理</a></dd>
+        </dl>
+    </div>
+</div>
